@@ -131,5 +131,8 @@
       }
     }
   },
-  "defaultProject": "ngx-change-detection"
+  "defaultProject": "ngx-change-detection",
+  "cli": {
+    "packageManager": "npm"
+  }
 }
