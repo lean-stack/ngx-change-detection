@@ -8,7 +8,20 @@
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular": {
+          "component": {
+            "spec": false,
+            "inlineStyle": true
+          },
+          "directive": {
+            "spec": false
+          },
+          "service": {
+            "spec": false
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
