@@ -1,0 +1,15 @@
+<mat-card #card [class.mat-elevation-z1]="true">
+  <mat-card-header>
+      <mat-card-title>{{ name }}, Strategy: {{ strategy }}</mat-card-title>
+      <mat-card-title></mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <p>Current count: {{ count }}</p>
+    <app-sub-child></app-sub-child>
+    <app-sub-child></app-sub-child>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button (click)="inc()">Inc with Mutation</button>
+  </mat-card-actions>
+</mat-card>

@@ -2,3 +2,39 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.displays {
+  margin-top: 2em;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.displays mat-card {
+  max-width: 300px;
+  margin-top: 1em;
+  transition: all 0.5s ease-in-out;
+}
+.displays mat-card mat-card-content {
+  margin-top: 1em;
+}
+
+.displays mat-card.checking {
+  background-color: #c7c7f5;
+}
+
+app-sub-child {
+  display: block;
+  border: 1px solid gray;
+  border-radius: 4px;
+  margin-top: 1em;
+  padding: 1em;
+  background-color: white;
+  transition: all 0.5s ease-in-out;
+}
+app-sub-child.checking {
+  background-color: #5d5de7;
+}
+app-sub-child p {
+  margin: 0;
+}
