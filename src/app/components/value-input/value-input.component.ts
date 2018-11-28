@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, DoCheck, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, DoCheck, ViewChild, ElementRef, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { MatCard } from '@angular/material/card';
 import { CounterService } from 'src/app/services/counter.service';
@@ -6,7 +6,8 @@ import { CounterService } from 'src/app/services/counter.service';
 @Component({
   selector: 'app-value-input',
   templateUrl: './value-input.component.html',
-  styles: []
+  styles: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ValueInputComponent
   implements OnChanges, OnInit, DoCheck {
@@ -37,5 +38,9 @@ export class ValueInputComponent
 
   inc() {
     this.svc.incByMutatedCounter();
+  }
+
+  incImmutable() {
+    this.svc.incByRefChange();
   }
 }

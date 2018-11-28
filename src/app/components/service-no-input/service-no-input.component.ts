@@ -1,27 +1,28 @@
-import { Component, OnInit, OnChanges, DoCheck, Input, ViewChild, ElementRef, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck, Input, ViewChild, ElementRef, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatCard } from '@angular/material/card';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { CounterService } from 'src/app/services/counter.service';
 
 @Component({
-  selector: 'app-object-input',
-  templateUrl: './object-input.component.html',
+  selector: 'app-service-no-input',
+  templateUrl: './service-no-input.component.html',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ObjectInputComponent implements OnChanges, OnInit, DoCheck {
+export class ServiceNoInputComponent implements OnChanges, OnInit, DoCheck {
 
-  name = 'Object Input';
+  name = 'Service - No Input';
   strategy = 'OnPush';
 
-  @Input()
-  counter: { count: number };
+  private previousCount: number;
 
   @ViewChild(MatCard, { read: ElementRef })
   card: ElementRef;
 
   constructor(private hightlight: HighlightService,
-    private svc: CounterService) {}
+    public svc: CounterService, private cdRef: ChangeDetectorRef) {
+      this.previousCount = svc.counter.count;
+    }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log('Changes on', this.name, changes);
@@ -33,6 +34,10 @@ export class ObjectInputComponent implements OnChanges, OnInit, DoCheck {
 
   ngDoCheck(): void {
     this.hightlight.enlight(this.card.nativeElement);
+    if (this.previousCount !== this.svc.counter.count) {
+      this.previousCount = this.svc.counter.count;
+      this.cdRef.markForCheck();
+    }
   }
 
   inc() {

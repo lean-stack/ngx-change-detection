@@ -14,4 +14,7 @@ export class CounterService {
   incByMutatedCounter() {
     this.counter.count++;
   }
+  incByRefChange() {
+    this.counter = { count: this.counter.count + 1 };
+  }
 }

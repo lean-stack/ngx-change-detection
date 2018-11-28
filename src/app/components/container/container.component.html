@@ -1,4 +1,8 @@
+<mat-card>
+  Neuer Count-Wert: <input type="text" (input)="true">
+</mat-card>
 <section class="displays">
   <app-value-input [count]="counterService.counter.count"></app-value-input>
   <app-object-input [counter]="counterService.counter"></app-object-input>
+  <app-service-no-input></app-service-no-input>
 </section>
