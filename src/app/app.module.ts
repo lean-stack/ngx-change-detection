@@ -14,6 +14,7 @@ import { ValueInputComponent } from './components/value-input/value-input.compon
 import { SubChildComponent } from './components/sub-child/sub-child.component';
 import { ObjectInputComponent } from './components/object-input/object-input.component';
 import { ServiceNoInputComponent } from './components/service-no-input/service-no-input.component';
+import { ReactiveNoInputComponent } from './components/reactive-no-input/reactive-no-input.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ServiceNoInputComponent } from './components/service-no-input/service-n
     ValueInputComponent,
     SubChildComponent,
     ObjectInputComponent,
-    ServiceNoInputComponent
+    ServiceNoInputComponent,
+    ReactiveNoInputComponent
   ],
   imports: [
     BrowserModule,

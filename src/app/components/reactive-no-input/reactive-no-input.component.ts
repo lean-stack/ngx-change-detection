@@ -1,28 +1,33 @@
 import { Component, OnInit, OnChanges, DoCheck,
-  ViewChild, ElementRef, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+  ViewChild, ElementRef, ChangeDetectorRef, SimpleChanges, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MatCard } from '@angular/material/card';
 import { HighlightService } from 'src/app/services/highlight.service';
 import { CounterService } from 'src/app/services/counter.service';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-service-no-input',
-  templateUrl: './service-no-input.component.html',
+  selector: 'app-reactive-no-input',
+  templateUrl: './reactive-no-input.component.html',
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ServiceNoInputComponent implements OnChanges, OnInit, DoCheck {
+export class ReactiveNoInputComponent implements
+  OnChanges, OnInit, DoCheck, OnDestroy {
 
-  name = 'Service - No Input';
+  name = 'Reactive - No Input';
   strategy = 'OnPush';
 
-  private previousCount: number;
+  count: number;
+  subCounter: number;
 
   @ViewChild(MatCard, { read: ElementRef })
   card: ElementRef;
 
+  private counter$Subscription: Subscription;
+
   constructor(private hightlight: HighlightService,
     public svc: CounterService, private cdRef: ChangeDetectorRef) {
-      this.previousCount = svc.counter.count;
+
     }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -31,17 +36,27 @@ export class ServiceNoInputComponent implements OnChanges, OnInit, DoCheck {
 
   ngOnInit(): void {
     console.log('Initiating', this.name);
+    this.counter$Subscription = this.svc.counter$.subscribe( c => {
+      this.count = c.count;
+      this.cdRef.markForCheck();
+    });
+    // // TODO: unsubscribe
+    // this.svc.subCounter$.subscribe( c => {
+    //   this.subCounter = c;
+    //   this.cdRef.markForCheck();
+    // });
   }
 
   ngDoCheck(): void {
     this.hightlight.enlight(this.card.nativeElement);
-    if (this.previousCount !== this.svc.counter.count) {
-      this.previousCount = this.svc.counter.count;
-      this.cdRef.markForCheck();
-    }
   }
 
   inc() {
     this.svc.incByMutatedCounter();
   }
+
+  ngOnDestroy() {
+    this.counter$Subscription.unsubscribe();
+  }
 }
+
